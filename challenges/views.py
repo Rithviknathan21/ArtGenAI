@@ -15,6 +15,11 @@ from django.shortcuts import render
 from .utils import check_plagiarism
 from .models import User
 
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'index.html')
+
 def leaderboard(request):
     users = User.objects.annotate(total_score=Sum('submission__score')).order_by('-total_score')
     return render(request, 'leaderboard.html', {'users': users})
