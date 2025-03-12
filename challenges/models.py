@@ -21,3 +21,26 @@ class Submission(models.Model):
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
     code = models.TextField()
     result = models.CharField(max_length=255)
+
+class Contest(models.Model):
+    name = models.CharField(max_length=255)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    status = models.CharField(max_length=20, default='scheduled')
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=1200)
+
+class Submission(models.Model):
+    LANGUAGE_CHOICES = [
+        ('python', 'Python'),
+        ('cpp', 'C++'),
+        ('java', 'Java'),
+    ]
+    language = models.CharField(max_length=10, choices=LANGUAGE_CHOICES)
+
+class Team(models.Model):
+    name = models.CharField(max_length=255)
+    members = models.ManyToManyField(User)
+
